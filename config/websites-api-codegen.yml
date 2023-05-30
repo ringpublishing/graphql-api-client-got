@@ -1,0 +1,9 @@
+schema:
+  - ./websites-api-schema.json
+generates:
+  './src/types/websites-api.ts':
+    plugins:
+      - typescript
+  './src/schemas/websites-api.graphql':
+    plugins:
+      - schema-ast

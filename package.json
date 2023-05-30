@@ -1,0 +1,66 @@
+{
+    "name": "@ringpublishing/graphql-api-client-got",
+    "version": "1.0.0",
+    "description": "Ring Publishing GraphQL API Client",
+    "license": "LGPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ringpublishing/ringpublishing-graphql-api-client-got-node.git"
+    },
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "engines": {
+        "node": ">=14.16"
+    },
+    "scripts": {
+        "build": "npm run generate-types && tsc && copyfiles -f src/schemas/*.graphql lib/schemas",
+        "lint": "npm run lint:js",
+        "lint:js": "npm run generate-types && eslint --ext .js,.jsx,.ts,.tsx examples/ src/ tests/",
+        "lint:js:fix": "npm run lint:js -- --fix",
+        "prebuild": "rimraf lib",
+        "prepublishOnly": "npm run build --silent",
+        "test": "npm run generate-types && jest --ci --coverage --silent",
+        "generate-api-schema": "ts-node src/generate-json-api-schema.ts",
+        "generate-websites-api-types": "graphql-code-generator --config=config/websites-api-codegen.yml",
+        "generate-content-api-types": "graphql-code-generator --config=config/content-api-codegen.yml",
+        "generate-videos-api-types": "graphql-code-generator --config=config/videos-api-codegen.yml",
+        "generate-types": "npm run generate-api-schema && npm run generate-websites-api-types && npm run generate-content-api-types && npm run generate-videos-api-types"
+    },
+    "dependencies": {
+        "@aws-crypto/sha256-js": "~2.0.0",
+        "@aws-sdk/protocol-http": "~3.215.0",
+        "@aws-sdk/signature-v4": "~3.215.0",
+        "got": "~11.8.0",
+        "graphql": "~16.6.0",
+        "graphql-tag": "~2.12.0"
+    },
+    "devDependencies": {
+        "@ringieraxelspringer/eslint-config": "^18.0.0",
+        "@graphql-codegen/cli": "^3.2.1",
+        "@graphql-codegen/schema-ast": "^3.0.1",
+        "@graphql-codegen/typescript": "3.0.1",
+        "@ringieraxelspringer/tsconfig": "^5.0.0",
+        "@types/jest": "^29.0.0",
+        "@types/node": "^14.0.0",
+        "copyfiles": "^2.4.1",
+        "jest": "^29.0.0",
+        "rimraf": "^3.0.0",
+        "ts-jest": "^29.0.0",
+        "ts-node": "^10.0.0",
+        "typescript": "~4.8.0"
+    },
+    "eslintConfig": {
+        "extends": "@ringieraxelspringer/eslint-config",
+        "env": {
+            "jest": true
+        },
+        "ignorePatterns": [
+            "src/types/content-api.ts",
+            "src/types/websites-api.ts",
+            "src/types/videos-api.ts"
+        ]
+    },
+    "jest": {
+        "preset": "ts-jest"
+    }
+}

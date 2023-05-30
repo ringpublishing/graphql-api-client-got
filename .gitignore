@@ -1,0 +1,11 @@
+/*.iml
+/.idea
+/.vscode
+/coverage
+/lib
+/node_modules
+/src/types
+/src/schemas
+/websites-api-schema.json
+/content-api-schema.json
+/videos-api-schema.json

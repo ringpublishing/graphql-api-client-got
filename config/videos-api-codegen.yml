@@ -1,0 +1,9 @@
+schema:
+  - ./videos-api-schema.json
+generates:
+  './src/types/videos-api.ts':
+    plugins:
+      - typescript
+  './src/schemas/videos-api.graphql':
+    plugins:
+      - schema-ast
