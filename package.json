@@ -1,7 +1,10 @@
 {
     "name": "@ringpublishing/graphql-api-client-got",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Ring Publishing GraphQL API Client",
+    "publishConfig": {
+        "access": "public"
+    },
     "license": "LGPL-3.0",
     "repository": {
         "type": "git",
