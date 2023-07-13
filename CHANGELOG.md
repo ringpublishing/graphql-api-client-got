@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2023-07-13
+### Added
+- [@pjarolewski]: Update types
+
 ## [1.0.2] - 2023-06-01
 ### Changed
 - [@pjarolewski]: Changed package publicConfig access to public
