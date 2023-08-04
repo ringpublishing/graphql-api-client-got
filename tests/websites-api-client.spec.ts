@@ -1,5 +1,4 @@
-import { WebsitesApiClient } from '../src';
-import { gql } from 'graphql-tag';
+import { gql, WebsitesApiClient } from '../src';
 import got from 'got';
 
 jest.mock('got');
