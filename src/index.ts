@@ -12,3 +12,4 @@ export * as WebsitesApiTypes from './types/websites-api';
 export * as ContentApiTypes from './types/content-api';
 export * as VideosApiTypes from './types/videos-api';
 export { gql } from 'graphql-tag';
+export { DocumentNode } from 'graphql';
