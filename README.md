@@ -70,6 +70,7 @@ class WebsitesApiClient or ContentApiClient
         timeout (number, default 1000) - Response timeout
         apiHost (string) - API host, default: api.ringpublishing.com
         apiProtocol: (RingGqlApiProtocol) - API protocol, default: RingGqlApiProtocol.HTTPS
+        keepAlive: (boolean) - keep alive connection, default: true
     } 
 
     methods:

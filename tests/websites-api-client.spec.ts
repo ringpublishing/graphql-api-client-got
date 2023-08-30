@@ -101,7 +101,8 @@ describe('Ring GQL API client', () => {
                 connect: 200,
                 response: 1000
             },
-            url: expect.any(URL)
+            url: expect.any(URL),
+            agent: expect.any(Object)
         });
     });
 });

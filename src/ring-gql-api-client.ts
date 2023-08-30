@@ -1,3 +1,5 @@
+import { Agent as HttpsAgent } from 'https';
+import { Agent as HttpAgent } from 'http';
 import { Sha256 } from '@aws-crypto/sha256-js';
 import { HttpRequest } from '@aws-sdk/protocol-http';
 import { SignatureV4 } from '@aws-sdk/signature-v4';
@@ -26,6 +28,7 @@ export interface RingApiGqlClientParams {
     secretKey: string;
     spaceUuid: string;
     timeout?: number;
+    keepAlive?: boolean;
 }
 
 export interface RingGqlApiClientResponseError {
@@ -59,18 +62,22 @@ export abstract class RingGqlApiClient {
 
     private readonly timeout: number;
 
+    private readonly keepAlive: boolean;
+
     constructor({
         accessKey,
         apiHost = API_HOSTNAME,
         apiProtocol = RingGqlApiProtocol.HTTPS,
         timeout = DEFAULT_TIMEOUT,
         secretKey,
-        spaceUuid
+        spaceUuid,
+        keepAlive = true
     }: RingApiGqlClientParams) {
         this.apiHost = apiHost;
         this.apiProtocol = apiProtocol;
         this.spaceUuid = spaceUuid;
         this.timeout = timeout;
+        this.keepAlive = keepAlive;
 
         this.signer = new SignatureV4({
             credentials: {
@@ -105,6 +112,15 @@ export abstract class RingGqlApiClient {
         });
         const { body, headers } = await this.signer.sign(httpRequest, { signingDate: new Date() });
 
+        let agent;
+
+        if (this.keepAlive) {
+            const keepAliveOptions = { keepAlive: true };
+            const httpAgent = new HttpAgent(keepAliveOptions);
+            const httpsAgent = new HttpsAgent(keepAliveOptions);
+            agent = { http: httpAgent, https: httpsAgent };
+        }
+
         return got
             .post({
                 headers,
@@ -117,7 +133,8 @@ export abstract class RingGqlApiClient {
                     connect: 200,
                     response: this.timeout
                 },
-                url: this.url
+                url: this.url,
+                ...(agent && { agent })
             })
             .json<RingGqlApiClientResponse<TResponseData>>();
     }
