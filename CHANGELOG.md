@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.4.0] - 2023-11-15
+### Changed
+- [@bfoder]: Update types
+
 ## [1.3.0] - 2023-08-30
 ### Added
 - [@pjarolewski]: Added keep-alive parameter
