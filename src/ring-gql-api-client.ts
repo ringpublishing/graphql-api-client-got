@@ -42,9 +42,21 @@ export interface RingGqlApiClientResponseError {
     message: string;
 }
 
+export interface RingGqlApiClientInfrastructureError {
+    code: string;
+    details?: {
+        limit: number;
+    };
+    innererror?: {
+        code: string;
+        message: string;
+    };
+}
+
 export interface RingGqlApiClientResponse<TResponseData> {
     data?: TResponseData;
     errors?: RingGqlApiClientResponseError[];
+    error?: RingGqlApiClientInfrastructureError | string;
 }
 
 export abstract class RingGqlApiClient {
